@@ -17,7 +17,10 @@ public class NaveJugador : MonoBehaviour
 
         //Se coge el numero mirando lo que ocupa la mitad de la nave, como mi nave ocupa 0,5 se lo restamos o sumamos segun el eje y asi no se pasa, cogiuendo de referencia
         //la mitad justo
-        MinPantalla.x = MinPantalla.x + 0.5f;
+
+        //MinPantalla.x = MinPantalla.x + 0.5f;
+        //MinPantalla.x += 0.5f;//Sinonimo de la linea de dalt
+        MinPantalla.x = GetComponent<SpriteRenderer>().sprite.bounds.size.x
         MaxPantalla.x = MaxPantalla.x - 0.5f;
 
         MinPantalla.y = MinPantalla.y + 0.5f;

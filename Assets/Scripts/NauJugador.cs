@@ -2,38 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NauJugador : MonoBehaviour
+public class NaveJugador : MonoBehaviour
 {
-    private float _vel;
-    Vector2 minpantalla, maxpantalla;
-
+    private float _Vel;
+    private Vector2 MinPantalla, MaxPantalla;
+    
     // Start is called before the first frame update
     void Start()
     {
-        _vel = 8;       
-        minpantalla = Camera.main.ViewportToWorldPoint(new Vector2(0,0));
-        maxpantalla = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        _Vel = 8;  
 
-        minpantalla.x = minpantalla.x + 0.5f;
-        maxpantalla.x = maxpantalla.x + 0.5f;
-        minpantalla.x = maxpantalla.x + 0.5f;
+        MinPantalla = Camera.main.ViewportToWorldPoint(new Vector2(0,0));
+        MaxPantalla = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
+        //Se coge el numero mirando lo que ocupa la mitad de la nave, como mi nave ocupa 0,5 se lo restamos o sumamos segun el eje y asi no se pasa, cogiuendo de referencia
+        //la mitad justo
+        MinPantalla.x = MinPantalla.x + 0.5f;
+        MaxPantalla.x = MaxPantalla.x - 0.5f;
+
+        MinPantalla.y = MinPantalla.y + 0.5f;
+        MaxPantalla.y = MaxPantalla.y - 0.5f;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        float direccioindicadaX = Input.GetAxisRaw("Horizontal");
-        float direccioindicadaY = Input.GetAxisRaw("Vertical");
+        //Todo esto para que se mueva el jugador y para que la camara tenga limites.
+        float DireccionIndicadaX = Input.GetAxisRaw("Horizontal");
+        float DireccionIndicadaY = Input.GetAxisRaw("Vertical");
+        //Debug.Log("X: " + DireccionIndicadaX + " - Y: " + DireccionIndicadaY);
 
-        Debug.Log("X:"+direccioindicadaX+ " Y: "+direccioindicadaY);
-        Vector2 direccioindicada = new Vector2(direccioindicadaX, direccioindicadaY).normalized;
-        Vector2 novapos = transform.position;
-        novapos = novapos + direccioindicada * _vel * Time.deltaTime;
-        novapos.x = Mathf.Clamp(novapos.x, minpantalla.x, maxpantalla.x);
-        novapos.x = Mathf.Clamp(novapos.y, minpantalla.y, maxpantalla.y);
+        Vector2 DireccionIndicada = new Vector2(DireccionIndicadaX, DireccionIndicadaY).normalized;
 
-        transform.position = novapos;
+        Vector2 NuevaPos = transform.position;
+        NuevaPos = NuevaPos + DireccionIndicada * _Vel * Time.deltaTime;
+
+        Debug.Log(NuevaPos);
+
+        NuevaPos.x = Mathf.Clamp(NuevaPos.x, MinPantalla.x, MaxPantalla.x);
+        NuevaPos.y = Mathf.Clamp(NuevaPos.y, MinPantalla.y, MaxPantalla.y);
+
+        transform.position = NuevaPos;  
+
+        
 
 
     }

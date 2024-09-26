@@ -16,15 +16,14 @@ public class NaveJugador : MonoBehaviour
         MaxPantalla = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
         //Se coge el numero mirando lo que ocupa la mitad de la nave, como mi nave ocupa 0,5 se lo restamos o sumamos segun el eje y asi no se pasa, cogiuendo de referencia
-        //la mitad justo
+        float medidaImagenX = GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x/2;
+        float medidaImagenY = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y/2 ;
 
-        //MinPantalla.x = MinPantalla.x + 0.5f;
-        //MinPantalla.x += 0.5f;//Sinonimo de la linea de dalt
-        MinPantalla.x = GetComponent<SpriteRenderer>().sprite.bounds.size.x
-        MaxPantalla.x = MaxPantalla.x - 0.5f;
+        MinPantalla.x += medidaImagenX;
+        MaxPantalla.x -= medidaImagenX;
 
-        MinPantalla.y = MinPantalla.y + 0.5f;
-        MaxPantalla.y = MaxPantalla.y - 0.5f;
+        MinPantalla.y += medidaImagenY;
+        MaxPantalla.y -= medidaImagenY;
 
     }
 

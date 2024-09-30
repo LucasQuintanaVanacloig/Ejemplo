@@ -6,7 +6,9 @@ public class NaveJugador : MonoBehaviour
 {
     private float _Vel;
     private Vector2 MinPantalla, MaxPantalla;
-    
+    [SerializeField]
+    private GameObject prefaProyectil;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,13 @@ public class NaveJugador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        movimentNau();
+
+        DisparaProjectil();
+        
+    }
+    private void movimentNau ()
+    {
         //Todo esto para que se mueva el jugador y para que la camara tenga limites.
         float DireccionIndicadaX = Input.GetAxisRaw("Horizontal");
         float DireccionIndicadaY = Input.GetAxisRaw("Vertical");
@@ -45,10 +54,16 @@ public class NaveJugador : MonoBehaviour
         NuevaPos.x = Mathf.Clamp(NuevaPos.x, MinPantalla.x, MaxPantalla.x);
         NuevaPos.y = Mathf.Clamp(NuevaPos.y, MinPantalla.y, MaxPantalla.y);
 
-        transform.position = NuevaPos;  
-
-        
-
+        transform.position = NuevaPos;
+    }
+    private void DisparaProjectil()
+    {
+        if (Input.GetKeyDown(name: "space"))
+        {
+            GameObject proyectil = Instantiate(prefaProyectil);
+            proyectil.transform.position = transform.position;
+        }
 
     }
+
 }

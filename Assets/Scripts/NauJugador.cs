@@ -19,6 +19,7 @@ public class NaveJugador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DadesGlobals.ReiniciarPunts();
         _Vel = 8;  
         vidasJugador = 3;
 

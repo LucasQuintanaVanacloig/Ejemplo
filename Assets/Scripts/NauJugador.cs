@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class NaveJugador : MonoBehaviour
 {
@@ -10,10 +12,15 @@ public class NaveJugador : MonoBehaviour
     private GameObject prefaProyectil;
     [SerializeField]
     private GameObject prefabExplosio;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI uividasJugador;
+
+    private int vidasJugador;
     // Start is called before the first frame update
     void Start()
     {
         _Vel = 8;  
+        vidasJugador = 3;
 
         MinPantalla = Camera.main.ViewportToWorldPoint(new Vector2(0,0));
         MaxPantalla = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
@@ -70,9 +77,15 @@ public class NaveJugador : MonoBehaviour
     {
         if (objecteTocat.tag == "Numero")
         {
+
+            vidasJugador--;
+            uividasJugador.text = "Vidas: " + vidasJugador;
+            if (vidasJugador <= 0) { 
             GameObject Explosio = Instantiate(prefabExplosio);
             Explosio.transform.position = transform.position;
             Destroy(gameObject);
+                SceneManager.LoadScene("PantallaResultats");
+            }
         }
     }
 }

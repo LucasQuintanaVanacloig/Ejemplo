@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Numeroç : MonoBehaviour
+public class Numero : MonoBehaviour
 {
     private float _vel;
 
